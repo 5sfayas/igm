@@ -32,3 +32,26 @@ class InstagramBot:
         passworword_elem.send_keys(self.password)
         passworword_elem.send_keys(Keys.RETURN)
         time.sleep(20)
+        
+        
+if __name__ == "__main__":
+    username = "you user name"
+    password = "your password"
+
+    ig = InstagramBot(username, password)
+    ig.login()
+    time.sleep(random.randint(20, 35))
+    ig.prfile()
+
+    hashtags = ['bnw', 'naturelovers', 'travelgram']
+    tag = 0
+    #random.shuffle(hashtags)
+    for hashtags in hashtags:
+        ig.like_photo(hashtags)
+        ig.home()  
+        ig.prfile()
+    ig.closeBrowser()
+    
+    
+    # os.system("shutdown /s /t 1")
+    sys.exit()
