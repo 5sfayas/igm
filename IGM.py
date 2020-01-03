@@ -121,8 +121,6 @@ class InstagramBot:
             except Exception as e:
                 time.sleep(2)
             unique_photos -= 1
-
-    def like_latest_posts(self, user, n_posts, like=True):
         """
         Likes a number of a users latest posts, specified by n_posts.
         Args:
@@ -224,6 +222,9 @@ if __name__ == "__main__":
     ig.login()
     time.sleep(random.randint(20, 35))
     ig.prfile()
+    
+    #like specific user and 40 post of his
+    ig.likeuser(fayas_akram, 40):
 
     hashtags = ['bnw', 'naturelovers', 'travelgram']
     tag = 0
