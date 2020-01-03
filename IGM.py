@@ -169,7 +169,52 @@ class InstagramBot:
                 except Exception as e:
                     print(e)
             break
-        
+    
+    def likeuser(self, user, num):
+        self.driver.get("https://www.instagram.com/" + user + "/")
+        # gathering photos
+        pic_hrefs = []
+        for i in range(1, 4):
+            try:
+                self.driver.execute_script("window.scrollTo(0, (document.body.scrollHeight)/4);")
+                time.sleep(2)
+                # get tags
+                hrefs_in_view = self.driver.find_elements_by_tag_name('a')
+                # finding relevant hrefs
+                hrefs_in_view = [elem.get_attribute('href') for elem in hrefs_in_view
+                                 if '.com/p/' in elem.get_attribute('href')]
+                # building list of unique photos
+                [pic_hrefs.append(href) for href in hrefs_in_view if href not in pic_hrefs]
+                print("Check: pic href length " + str(len(pic_hrefs)))
+            except Exception:
+                continue
+
+        # Liking photos
+        unique_photos = len(pic_hrefs)
+        # reverse array to like
+        pic_hrefs.reverse()
+        # shuffle array to like
+        #random.shuffle(pic_hrefs)
+        lk = 0
+        for pic_href in pic_hrefs:
+            print("Check: getting photo to like")
+            print("links " + pic_href)
+            time.sleep(random.randint(2, 8))
+            self.driver.get(pic_href)
+            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            #time.sleep(random.randint(2, 10))
+            #liked = unique_photos - 1
+            while lk <= num:
+                time.sleep(random.randint(2, 5))
+                lk = lk + 1
+                try:
+                    like_button = lambda: self.driver.find_element_by_xpath('//span[@aria-label="Like"]').click()
+                    like_button.click()
+                except Exception as e:
+                    print(e)
+                    time.sleep(2)
+            break
+            unique_photos -= 1
         
 if __name__ == "__main__":
     username = "you user name"
