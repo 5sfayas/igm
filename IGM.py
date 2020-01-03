@@ -34,6 +34,15 @@ class InstagramBot:
         passworword_elem.send_keys(self.password)
         passworword_elem.send_keys(Keys.RETURN)
         time.sleep(20)
+        # call otp method
+        otp = driver.find_element_by_xpath("//input[@name='verificationCode']")
+        otp.clear()
+        print("Please enter OTP ")
+        code = input('Let us wait for user input. find the code from your phone.\n')
+        otp.send_keys(code)
+        print("Please verify the code")
+        otp.send_keys(Keys.RETURN)
+        time.sleep(20)
         
        def home(self):
         driver = self.driver
